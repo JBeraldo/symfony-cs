@@ -1,0 +1,48 @@
+services:
+    api:
+        container_name: symfony
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: php83-fpm
+        restart: unless-stopped
+        working_dir: /var/www/
+        environment:
+            PHP_OPCACHE_ENABLE: 1
+            PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
+            PHP_OPCACHE_MAX_ACCELERATED_FILES: 10000
+            PHP_OPCACHE_MEMORY_CONSUMPTION: 192
+            PHP_OPCACHE_MAX_WASTED_PERCENTAGE: 10
+        volumes:
+            - ./:/var/www:rw
+        networks:
+            - api-network
+    web-server:
+        container_name: nginx
+        image: nginx:1.24
+        restart: unless-stopped
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d/
+            - ./ssl:/etc/nginx/ssl
+        networks:
+            - api-network
+    #db:
+    #    container_name: postgres
+    #    image: postgres:16
+    #    volumes:
+    #        - "./docker/database/postgres/:/var/lib/postgresql/data/"
+    #    environment:
+    #        POSTGRES_USER: ${DB_USERNAME} # The PostgreSQL user (useful to connect to the database)
+    #        POSTGRES_PASSWORD: ${DB_PASSWORD} # The PostgreSQL password (useful to connect to the database)
+    #        POSTGRES_DB: ${DB_DATABASE} # The PostgreSQL default database (automatically created at first launch)
+    #    ports:
+    #       - "5432:5432"
+    #    networks:
+    #        - api-network
+networks:
+    api-network:
+        driver: bridge
