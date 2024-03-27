@@ -44,6 +44,14 @@ services:
            - "5432:5432"
         networks:
             - api-network
+    cache:
+        container_name: redis
+        image: redis:7
+        entrypoint: "redis-server"
+        ports:
+            - "6379:6379"
+        networks:
+            - api-network
 networks:
     api-network:
         driver: bridge

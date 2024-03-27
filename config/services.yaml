@@ -24,3 +24,6 @@ services:
     # please note that last definitions always *replace* previous ones
     App\EventListener\UnprocessableContentListener:
         tags: [kernel.event_listener]
+    App\EventListener\JWTEncodedListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_encoded}
