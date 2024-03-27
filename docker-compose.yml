@@ -10,8 +10,8 @@ services:
         environment:
             PHP_OPCACHE_ENABLE: 1
             PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
-            PHP_OPCACHE_MAX_ACCELERATED_FILES: 10000
-            PHP_OPCACHE_MEMORY_CONSUMPTION: 192
+            PHP_OPCACHE_MAX_ACCELERATED_FILES: 20000
+            PHP_OPCACHE_MEMORY_CONSUMPTION: 256
             PHP_OPCACHE_MAX_WASTED_PERCENTAGE: 10
         volumes:
             - ./:/var/www:rw
@@ -33,7 +33,7 @@ services:
     db:
         container_name: postgres
         image: postgres:16
-
+        restart: unless-stopped
         volumes:
             - "database_data:/var/lib/postgresql/data/"
         environment:
@@ -47,7 +47,7 @@ services:
     cache:
         container_name: redis
         image: redis:7
-        entrypoint: "redis-server"
+        restart: unless-stopped
         ports:
             - "6379:6379"
         networks:

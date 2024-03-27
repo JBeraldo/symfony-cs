@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Adapter\CandidateUserAdapter;
 use App\DTO\Candidate\CandidateDTO;
 use App\Repository\UserRepository;
+use Lcobucci\JWT\Decoder;
 
 readonly class CandidateService
 {
