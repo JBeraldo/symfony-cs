@@ -1,13 +1,10 @@
 <?php
 
-namespace App\DTO\Candidate;
+namespace App\Http\Request\Candidate;
 
-use App\Validator\RequiredValidator;
-use App\Validator\RequiredValidator as CustomAssert;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-class CandidateDTO{
+class CreateCandidateRequest{
     public function __construct(
         #[Assert\NotBlank(
             message: 'Nome não deve ser nulo'

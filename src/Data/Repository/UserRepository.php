@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Data\Repository;
 
-use App\DTO\User\UserDTO;
-use App\Entity\User;
+use App\Domain\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;

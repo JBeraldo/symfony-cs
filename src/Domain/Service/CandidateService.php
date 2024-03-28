@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Service;
+namespace App\Domain\Service;
 
-use App\Adapter\CandidateUserAdapter;
-use App\DTO\Candidate\CandidateDTO;
-use App\Repository\UserRepository;
-use Lcobucci\JWT\Decoder;
+use App\Data\Repository\UserRepository;
+use App\DTO\Candidate\CreateCandidateRequest;
+use App\Http\Adapter\CandidateUserAdapter;
 
 readonly class CandidateService
 {
@@ -14,7 +13,7 @@ readonly class CandidateService
     )
     {}
 
-    public function store(CandidateDTO $candidateDTO):void
+    public function store(CreateCandidateRequest $candidateDTO):void
     {
         $user = CandidateUserAdapter::ResourceToUser($candidateDTO);
         $this->userRepository->store($user);

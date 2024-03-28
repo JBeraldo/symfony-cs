@@ -1,6 +1,24 @@
 services:
-    api:
-        container_name: symfony
+    api-nero:
+        container_name: symfony-nero
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: php83-fpm
+        restart: unless-stopped
+        working_dir: /var/www/
+        environment:
+            PHP_OPCACHE_ENABLE: 1
+            PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
+            PHP_OPCACHE_MAX_ACCELERATED_FILES: 20000
+            PHP_OPCACHE_MEMORY_CONSUMPTION: 256
+            PHP_OPCACHE_MAX_WASTED_PERCENTAGE: 10
+        volumes:
+            - ./:/var/www:rw
+        networks:
+            - api-network
+    api-zero:
+        container_name: symfony-zero
         build:
             context: .
             dockerfile: Dockerfile

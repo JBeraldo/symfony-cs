@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Resolver;
+namespace App\Framework\Resolver;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;

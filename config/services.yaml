@@ -22,8 +22,14 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\EventListener\UnprocessableContentListener:
+    App\Framework\EventListener\UnprocessableContentListener:
         tags: [kernel.event_listener]
-    App\EventListener\JWTEncodedListener:
+    App\Framework\EventListener\JWTEncodedListener:
         tags:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_encoded}
+    App\Framework\EventListener\AuthenticationFailureListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_failure }
+    App\Framework\EventListener\JWTAuthenticatedListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_authenticated }

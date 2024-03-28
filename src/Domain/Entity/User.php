@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Entity;
 
-use App\Repository\UserRepository;
+use App\Data\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -151,5 +151,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->username = $username;
 
         return $this;
+    }
+
+    /**
+     *
+     * @return bool
+     */
+    public function isCandidate(): bool
+    {
+        return in_array('ROLE_CANDIDATE',$this->getRoles());
+    }
+
+    /**
+     *
+     * @return bool
+     */
+    public function isCompany():bool
+    {
+        return in_array('ROLE_COMPANY',$this->getRoles());
     }
 }

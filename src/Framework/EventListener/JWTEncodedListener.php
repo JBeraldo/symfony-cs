@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EventListener;
+namespace App\Framework\EventListener;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTEncodedEvent;
 use Symfony\Component\Cache\CacheItem;

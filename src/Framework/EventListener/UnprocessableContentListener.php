@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EventListener;
+namespace App\Framework\EventListener;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -12,8 +12,8 @@ class UnprocessableContentListener
     {
         $exception = $event->getThrowable();
 
-        if($exception instanceof HttpExceptionInterface && $exception->getStatusCode() ===422){
-            $response = new JsonResponse(["mensagem" => $exception->getMessage()],422,$exception->getHeaders());
+        if($exception instanceof HttpExceptionInterface){
+            $response = new JsonResponse(["mensagem" => $exception->getMessage()],$exception->getStatusCode(),$exception->getHeaders());
             $event->setResponse($response);
         }
     }

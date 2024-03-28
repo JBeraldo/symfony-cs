@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Http\Controller;
 
-use App\DTO\Candidate\CandidateDTO;
-use App\Resolver\RequestPayloadValueResolver;
-use App\Service\CandidateService;
+use App\Domain\Service\CandidateService;
+use App\Framework\Resolver\RequestPayloadValueResolver;
+use App\Http\Request\Candidate\CreateCandidateRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
@@ -19,10 +19,10 @@ class CandidateController extends AbstractController
     }
 
     #[Route('/candidato', name: 'store',methods: ['POST'], format: 'json')]
-    public function store(#[MapRequestPayload(resolver: RequestPayloadValueResolver::class)] CandidateDTO $candidateDTO): Response
+    public function store(#[MapRequestPayload(resolver: RequestPayloadValueResolver::class)] CreateCandidateRequest $candidateDTO): Response
     {
         $this->service->store($candidateDTO);
 
-        return $this->json([],201);
+        return $this->json(["mensagem" => "Usuário cadastrado com sucesso"],201);
     }
 }
