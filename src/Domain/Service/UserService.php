@@ -2,7 +2,7 @@
 
 namespace App\Domain\Service;
 
-use App\Data\Repository\UserRepository;
+use App\Domain\Repository\UserRepository;
 use App\Http\Adapter\CandidateUserAdapter;
 use App\Http\Resource\UserResource;
 use Symfony\Bundle\SecurityBundle\Security;

@@ -1,3 +1,12 @@
+framework:
+    cache:
+        pools:
+            doctrine.result_cache_pool:
+                adapter: cache.app
+            doctrine.system_cache_pool:
+                adapter: cache.system
+            doctrine.second_level_cache_pool:
+                adapter: cache.app
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
@@ -24,6 +33,20 @@ doctrine:
                 alias: App
         controller_resolver:
             auto_mapping: false
+        second_level_cache:
+            enabled: true
+            region_cache_driver:
+                type: pool
+                pool: doctrine.second_level_cache_pool
+        metadata_cache_driver:
+            type: pool
+            pool: doctrine.system_cache_pool
+        query_cache_driver:
+            type: pool
+            pool: doctrine.system_cache_pool
+        result_cache_driver:
+            type: pool
+            pool: doctrine.result_cache_pool
 
 when@test:
     doctrine:
@@ -50,3 +73,5 @@ when@prod:
                     adapter: cache.app
                 doctrine.system_cache_pool:
                     adapter: cache.system
+                doctrine.second_level_cache_pool:
+                    adapter: cache.app

@@ -2,9 +2,9 @@
 
 namespace App\Domain\Service;
 
-use App\Data\Repository\UserRepository;
-use App\DTO\Candidate\CreateCandidateRequest;
+use App\Domain\Repository\UserRepository;
 use App\Http\Adapter\CandidateUserAdapter;
+use App\Http\Request\Candidate\CreateCandidateRequest;
 
 readonly class CandidateService
 {
