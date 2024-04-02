@@ -2,15 +2,16 @@
 
 namespace App\Domain\Service;
 
+use App\Domain\Repository\CandidateRepository;
 use App\Domain\Repository\UserRepository;
-use App\Http\Adapter\CandidateUserAdapter;
+use App\Http\Adapter\CandidateAdapter;
 use App\Http\Resource\UserResource;
 use Symfony\Bundle\SecurityBundle\Security;
 
 readonly class UserService
 {
     public function __construct(
-        private UserRepository $userRepository,
+        private CandidateRepository $candidateRepository,
         private Security $security
     )
     {}
@@ -18,7 +19,14 @@ readonly class UserService
     {
         $user = $this->security->getUser();
 
-        return CandidateUserAdapter::userToResource($user);
+        if($user->isCandidate()){
+            $candidate = $this->candidateRepository->findWithRelations($user->getId());
+            return CandidateAdapter::userToResource($candidate);
+        }
+        else{
+            return CandidateAdapter::userToResource($user);
+
+        }
     }
 
 }

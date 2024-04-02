@@ -4,9 +4,11 @@ declare(strict_types = 1);
 
 namespace App\Http\Resource;
 
+use Doctrine\Common\Collections\Collection;
+
 class CandidateResource extends UserResource {
-    private array $competencias = [];
-    private array $experiencias = [];
+    private array $competencias;
+    private array $experiencias;
     public function __construct()
     {
         parent::__construct();
@@ -31,6 +33,7 @@ class CandidateResource extends UserResource {
     {
         $this->experiencias = $experiencias;
     }
+
 
 
 }

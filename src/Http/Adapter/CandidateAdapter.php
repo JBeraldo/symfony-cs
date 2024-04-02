@@ -7,8 +7,9 @@ namespace App\Http\Adapter;
 use App\Domain\Entity\User;
 use App\Http\Request\Candidate\CreateCandidateRequest;
 use App\Http\Resource\CandidateResource;
+use Doctrine\Common\Collections\Collection;
 
-class CandidateUserAdapter
+class CandidateAdapter
 {
     public static function ResourceToUser(CreateCandidateRequest $candidateDTO): User
     {
@@ -26,7 +27,28 @@ class CandidateUserAdapter
         $resource->setNome($user->getUsername());
         $resource->setTipo('candidato');
         $resource->setEmail($user->getEmail());
-        #Todo: Colocar Competencias e Experiencias quando implementar relações
+        $resource->setExperiencias(self::convertExperiences($user->getExperiences()));
+        $resource->setCompetencias(self::convertSkills($user->getSkills()));
         return $resource;
+    }
+
+    private static function convertExperiences(Collection $experiences):array
+    {
+        $experiences_array = [];
+        foreach ($experiences as $xp)
+        {
+            $experiences_array[] = ExperienceAdapter::ExperienceToResource($xp);
+        }
+        return $experiences_array;
+    }
+
+    private static function convertSkills(Collection $skills):array
+    {
+        $skills_array = [];
+        foreach ($skills as $s)
+        {
+            $skills_array[] = SkillAdapter::skillToResource($s);
+        }
+        return $skills_array;
     }
 }

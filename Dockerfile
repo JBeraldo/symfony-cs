@@ -49,6 +49,6 @@ COPY composer.json .
 
 COPY . .
 
-RUN  composer install -o --no-interaction
+RUN  composer install
 
 USER $user
