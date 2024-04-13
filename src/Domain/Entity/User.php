@@ -7,20 +7,30 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ *
+ */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[ORM\Cache(usage: 'READ_ONLY')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    /**
+     * @var int|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
@@ -36,46 +46,80 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $segment = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $username = null;
-    #[ORM\OneToMany(targetEntity: Experience::class, mappedBy: 'candidate')]
+    /**
+     * @var Collection|ArrayCollection
+     */
+    #[ORM\OneToMany(targetEntity: Experience::class, mappedBy: 'candidate',cascade: ['all'])]
     private Collection $experiences;
-    #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'users')]
-    #[ORM\JoinTable(name: 'users_skills')]
+    /**
+     * @var Collection|ArrayCollection
+     */
+    #[ORM\ManyToMany(targetEntity: Skill::class, mappedBy: 'users',cascade: ['all'])]
     private Collection $skills;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->experiences = new ArrayCollection();
         $this->skills = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @return Collection
+     */
     public function getExperiences(): Collection
     {
         return $this->experiences;
     }
 
+    /**
+     * @param Collection $experiences
+     * @return void
+     */
     public function setExperiences(Collection $experiences): void
     {
         $this->experiences = $experiences;
     }
 
+    /**
+     * @param string $email
+     * @return $this
+     */
     public function setEmail(string $email): static
     {
         $this->email = $email;
@@ -125,6 +169,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
+    /**
+     * @param string $password
+     * @return $this
+     */
     public function setPassword(string $password): static
     {
         $this->password = $password;
@@ -141,11 +189,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+    /**
+     * @param string|null $description
+     * @return $this
+     */
     public function setDescription(?string $description): static
     {
         $this->description = $description;
@@ -153,11 +208,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSegment(): ?string
     {
         return $this->segment;
     }
 
+    /**
+     * @param string|null $segment
+     * @return $this
+     */
     public function setSegment(?string $segment): static
     {
         $this->segment = $segment;
@@ -165,11 +227,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getUsername(): ?string
     {
         return $this->username;
     }
 
+    /**
+     * @param string $username
+     * @return $this
+     */
     public function setUsername(string $username): static
     {
         $this->username = $username;
@@ -195,11 +264,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return in_array('ROLE_COMPANY',$this->getRoles());
     }
 
+    /**
+     * @return Collection
+     */
     public function getSkills(): Collection
     {
         return $this->skills;
     }
 
+    /**
+     * @param Collection $skills
+     * @return void
+     */
     public function setSkills(Collection $skills): void
     {
         $this->skills = $skills;

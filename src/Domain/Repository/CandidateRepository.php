@@ -17,6 +17,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class CandidateRepository extends UserRepository
 {
 
+    /**
+     * @param ManagerRegistry $registry
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @param ExperienceRepository $experienceRepository
+     * @param SkillRepository $skillRepository
+     */
     public function __construct(
         ManagerRegistry                              $registry,
         private readonly UserPasswordHasherInterface $passwordHasher,
@@ -28,6 +34,12 @@ class CandidateRepository extends UserRepository
     }
 
 
+    /**
+     * @param int $candidate_id
+     * @return User
+     * @throws \Doctrine\ORM\Exception\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function findWithRelations(int $candidate_id): User
     {
         $em = $this->getEntityManager();

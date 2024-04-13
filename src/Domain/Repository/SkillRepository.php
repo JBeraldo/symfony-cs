@@ -18,6 +18,9 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SkillRepository extends ServiceEntityRepository
 {
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Skill::class);
@@ -47,15 +50,20 @@ class SkillRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    /**
+     * @param $candidate_id
+     * @return Collection
+     */
     public function getByCandidate($candidate_id): Collection
     {
         $result = $this->createQueryBuilder('s')
             ->select('s')
-            ->from('App\Domain\Entity\User','u')
+            ->join('s.users','u')
             ->where('u.id = :candidate_id')
             ->setParameter('candidate_id',$candidate_id)
             ->getQuery()
-            ->getResult()
+            ->getResult();
+
         ;
         return new ArrayCollection($result);
     }

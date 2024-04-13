@@ -18,6 +18,9 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ExperienceRepository extends ServiceEntityRepository
 {
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Experience::class);
@@ -47,7 +50,11 @@ class ExperienceRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-        public function getByCandidate($candidate_id): Collection
+    /**
+     * @param $candidate_id
+     * @return Collection
+     */
+    public function getByCandidate($candidate_id): Collection
         {
             $result = $this->createQueryBuilder('e')
                 ->andWhere('e.candidate = :candidate_id')

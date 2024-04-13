@@ -5,7 +5,7 @@ namespace App\Http\Request\Candidate;
 use App\Http\Request\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateCandidateRequest implements Request {
+class UpdateCandidateRequest implements Request {
     public function __construct(
         #[Assert\NotBlank(
             message: 'Nome não deve ser nulo'
@@ -39,6 +39,22 @@ class CreateCandidateRequest implements Request {
             message: 'Senha não deve ser nula'
         )]
         public string $senha,
+        #[Assert\Type(
+            type: 'array',
+            message: "Competencias deve ser um vetor"
+        )]
+        #[Assert\NotBlank(
+            message: 'Competencias não deve ser nula'
+        )]
+        public array $competencias,
+        #[Assert\Type(
+            type: 'array',
+            message: "Experiências deve ser um vetor"
+        )]
+        #[Assert\NotBlank(
+            message: 'Experiências não deve ser nula'
+        )]
+        public array $experiencias
     )
     {
 

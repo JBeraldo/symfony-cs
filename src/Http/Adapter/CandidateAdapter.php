@@ -6,18 +6,25 @@ namespace App\Http\Adapter;
 
 use App\Domain\Entity\User;
 use App\Http\Request\Candidate\CreateCandidateRequest;
+use App\Http\Request\Candidate\UpdateCandidateRequest;
+use App\Http\Request\Request;
 use App\Http\Resource\CandidateResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 class CandidateAdapter
 {
-    public static function ResourceToUser(CreateCandidateRequest $candidateDTO): User
+    public static function ResourceToUser(Request $candidateDTO): User
     {
         $user = new User();
         $user->setUsername($candidateDTO->nome);
         $user->setEmail($candidateDTO->email);
         $user->setPassword($candidateDTO->senha);
         $user->setRoles(['ROLE_CANDIDATE']);
+        if($candidateDTO instanceof UpdateCandidateRequest){
+            $user->setExperiences(self::convertExperiencias($candidateDTO->experiencias));
+            $user->setSkills(self::convertCompetencias($candidateDTO->competencias));
+        }
         return $user;
     }
 
@@ -48,6 +55,26 @@ class CandidateAdapter
         foreach ($skills as $s)
         {
             $skills_array[] = SkillAdapter::skillToResource($s);
+        }
+        return $skills_array;
+    }
+
+    private static function convertExperiencias(array $experiences):Collection
+    {
+        $experiences_array = new ArrayCollection();
+        foreach ($experiences as $xp)
+        {
+            $experiences_array->add(ExperienceAdapter::requestToExperience($xp));
+        }
+        return $experiences_array;
+    }
+
+    private static function convertCompetencias(array $competencias): Collection
+    {
+        $skills_array = new ArrayCollection();
+        foreach ($competencias as $c)
+        {
+            $skills_array->add(SkillAdapter::requestToSkill($c));
         }
         return $skills_array;
     }

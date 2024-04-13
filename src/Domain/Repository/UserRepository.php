@@ -4,7 +4,9 @@ namespace App\Domain\Repository;
 
 use App\Domain\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -21,6 +23,10 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
 
+    /**
+     * @param ManagerRegistry $registry
+     * @param UserPasswordHasherInterface $passwordHasher
+     */
     public function __construct(
         ManagerRegistry $registry,
         private UserPasswordHasherInterface $passwordHasher,
@@ -43,12 +49,27 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    /**
+     * @param User $user
+     * @return void
+     */
     public function store(User $user): void
     {
         $hashedPassword =  $this->passwordHasher->hashPassword($user,$user->getPassword());
 
         $user->setPassword($hashedPassword);
         $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param User $user
+     * @return void
+     */
+    public function destroy(User $user): void
+    {
+        
+        $this->getEntityManager()->remove($user);
         $this->getEntityManager()->flush();
     }
 
