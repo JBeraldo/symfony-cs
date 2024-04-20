@@ -2,7 +2,6 @@
 
 namespace App\Domain\Service;
 
-use App\Domain\Entity\User;
 use App\Domain\Repository\CandidateRepository;
 use App\Domain\Repository\UserRepository;
 use App\Http\Adapter\CandidateAdapter;
