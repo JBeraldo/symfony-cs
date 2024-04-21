@@ -27,7 +27,7 @@ class CandidateController extends AbstractController
         return $this->json(["mensagem" => "Usuário cadastrado com sucesso"], Response::HTTP_CREATED);
     }
 
-    #[Route('/candidato', name: 'store',methods: ['PUT'], format: 'json')]
+    #[Route('/candidato', name: 'update',methods: ['PUT'], format: 'json')]
     public function update(#[MapRequestPayload(resolver: RequestPayloadValueResolver::class)] UpdateCandidateRequest $candidateDTO): Response
     {
         $this->service->update($candidateDTO);

@@ -42,7 +42,7 @@ class JWTListener
     public function onJWTNotFound(JWTNotFoundEvent $event): void
     {
         $data = [
-            "message" => "Token não encontrado"
+            "mensagem" => "Token não encontrado"
         ];
 
         $response = new JsonResponse($data,401);
@@ -53,7 +53,7 @@ class JWTListener
     public function onJWTExpired(JWTExpiredEvent $event): void
     {
         $data = [
-            "message" => "Token expirado"
+            "mensagem" => "Token expirado"
         ];
 
         $response = new JsonResponse($data,401);
@@ -64,7 +64,7 @@ class JWTListener
     public function onJWTInvalid(JWTInvalidEvent $event): void
     {
         $data = [
-            "message" => "Token Inválido"
+            "mensagem" => "Token Inválido"
         ];
 
         $response = new JsonResponse($data,401);
