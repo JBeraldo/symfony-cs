@@ -36,6 +36,7 @@ RUN docker-php-ext-enable redis
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY docker/php/conf.d/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY docker/php/conf.d/realpath.ini /usr/local/etc/php/conf.d/realpath.ini
 
 # Create system user to run Composer and Artisan Commands
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
@@ -49,6 +50,6 @@ COPY composer.json .
 
 COPY . .
 
-RUN  composer install
+RUN  composer install --classmap-authoritative
 
 USER $user
