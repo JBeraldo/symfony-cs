@@ -5,6 +5,7 @@ namespace App\Domain\Service;
 use App\Domain\Repository\CandidateRepository;
 use App\Domain\Repository\UserRepository;
 use App\Http\Adapter\CandidateAdapter;
+use App\Http\Adapter\CompanyAdapter;
 use App\Http\Resource\UserResource;
 use Symfony\Bundle\SecurityBundle\Security;
 
@@ -38,7 +39,7 @@ readonly class UserService
             return CandidateAdapter::userToResource($candidate);
         }
         else{
-            return CandidateAdapter::userToResource($user);
+            return CompanyAdapter::userToResource($user);
 
         }
     }

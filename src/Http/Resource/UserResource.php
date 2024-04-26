@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Resource;
 
 
@@ -10,6 +8,16 @@ class UserResource
     private string $nome;
     private string $email;
     private string $tipo;
+
+    public function getTipo(): string
+    {
+        return $this->tipo;
+    }
+
+    public function setTipo(string $tipo): void
+    {
+        $this->tipo = $tipo;
+    }
     public function __construct()
     {
     }
@@ -34,14 +42,5 @@ class UserResource
         $this->email = $email;
     }
 
-    public function getTipo(): string
-    {
-        return $this->tipo;
-    }
-
-    public function setTipo(string $tipo): void
-    {
-        $this->tipo = $tipo;
-    }
 
 }

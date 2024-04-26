@@ -24,7 +24,7 @@ class CandidateRepository extends UserRepository
      * @param SkillRepository $skillRepository
      */
     public function __construct(
-        ManagerRegistry                              $registry,
+        private ManagerRegistry $registry,
         private readonly UserPasswordHasherInterface $passwordHasher,
         private readonly ExperienceRepository $experienceRepository,
         private readonly SkillRepository $skillRepository

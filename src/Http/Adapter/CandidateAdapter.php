@@ -32,8 +32,8 @@ class CandidateAdapter
     {
         $resource = new CandidateResource();
         $resource->setNome($user->getUsername());
-        $resource->setTipo('candidato');
         $resource->setEmail($user->getEmail());
+        $resource->setTipo('candidato');
         $resource->setExperiencias(self::convertExperiences($user->getExperiences()));
         $resource->setCompetencias(self::convertSkills($user->getSkills()));
         return $resource;
