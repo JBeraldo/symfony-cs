@@ -50,6 +50,6 @@ COPY composer.json .
 
 COPY . .
 
-RUN  composer install --classmap-authoritative
+RUN  composer install --no-dev --classmap-authoritative
 
 USER $user
