@@ -4,8 +4,6 @@ declare(strict_types = 1);
 
 namespace App\Http\Resource;
 
-use Doctrine\Common\Collections\Collection;
-
 class CandidateResource extends UserResource {
     private array $competencias;
     private array $experiencias;

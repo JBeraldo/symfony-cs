@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Http\Controller;
 
 use App\Domain\Service\CandidateService;
@@ -15,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class CandidateController extends AbstractController
 {
     ##TODO colocar assert de tamanho dtos
-    public function __construct(private CandidateService $service)
+    public function __construct(private readonly CandidateService $service)
     {
     }
 

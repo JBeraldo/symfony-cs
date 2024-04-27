@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Http\Request\Candidate;
 
 use App\Http\Request\Request;

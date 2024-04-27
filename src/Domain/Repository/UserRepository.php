@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\User;
@@ -29,7 +31,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function __construct(
         ManagerRegistry $registry,
-        private UserPasswordHasherInterface $passwordHasher,
+        private readonly UserPasswordHasherInterface $passwordHasher,
     )
     {
         parent::__construct($registry, User::class);
@@ -50,7 +52,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * @param User $user
      * @return void
      */
     public function store(User $user): void
@@ -63,12 +64,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * @param User $user
      * @return void
      */
     public function destroy(User $user): void
     {
-        
+
         $this->getEntityManager()->remove($user);
         $this->getEntityManager()->flush();
     }

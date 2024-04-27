@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Http\Controller;
 
 use App\Domain\Service\UserService;
@@ -14,9 +16,9 @@ use Symfony\Contracts\Cache\CacheInterface;
 class UserController extends AbstractController
 {
     public function __construct(
-        private UserService $service,
-        private CacheInterface $loginCache,
-        private TokenExtractorInterface $tokenExtractor
+        private readonly UserService $service,
+        private readonly CacheInterface $loginCache,
+        private readonly TokenExtractorInterface $tokenExtractor
     )
     {
     }

@@ -9,7 +9,7 @@ class ExperienceResource
     private int $id;
     private string $nome_empresa;
     private string $inicio;
-    private ?string $fim;
+    private ?string $fim = null;
     private string $cargo;
 
     public function getId(): int

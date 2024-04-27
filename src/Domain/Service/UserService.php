@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Service;
 
 use App\Domain\Repository\CandidateRepository;
@@ -14,10 +16,6 @@ use Symfony\Bundle\SecurityBundle\Security;
  */
 readonly class UserService
 {
-    /**
-     * @param CandidateRepository $candidateRepository
-     * @param Security $security
-     */
     public function __construct(
         private CandidateRepository $candidateRepository,
         private UserRepository $userRepository,
@@ -47,7 +45,7 @@ readonly class UserService
     /**
      * @return void
      */
-    public function destroy()
+    public function destroy(): void
     {
         $user = $this->security->getUser();
         $this->userRepository->destroy($user);

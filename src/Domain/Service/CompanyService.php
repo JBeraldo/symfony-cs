@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Service;
 
 use App\Domain\Repository\CandidateRepository;
@@ -33,7 +35,7 @@ readonly class CompanyService
         $user = CompanyAdapter::ResourceToUser($companyDTO);
         try {
             $this->companyRepository->store($user);
-        }catch (UniqueConstraintViolationException $e)
+        }catch (UniqueConstraintViolationException)
         {
             throw new \HttpException("Email já utilizado",422);
         }

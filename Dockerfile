@@ -1,4 +1,4 @@
-FROM php:8.3.2-fpm
+FROM php:8.3.6-fpm
 
 # Arguments
 ARG user=php_user
@@ -9,6 +9,8 @@ ENV PHP_OPCACHE_ENABLE="0" \
     PHP_OPCACHE_MAX_ACCELERATED_FILES="10000" \
     PHP_OPCACHE_MEMORY_CONSUMPTION="192" \
     PHP_OPCACHE_MAX_WASTED_PERCENTAGE="10" \
+    PHP_OPCACHE_JIT_BUFFER_SIZE="0" \
+    PHP_OPCACHE_JIT="0" \
     COMPOSER_ALLOW_SUPERUSER=1
 
 # Install system dependencies
@@ -46,10 +48,8 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www
 
-COPY composer.json .
-
 COPY . .
 
-RUN  composer install --no-dev --classmap-authoritative
+RUN  composer install --classmap-authoritative
 
 USER $user

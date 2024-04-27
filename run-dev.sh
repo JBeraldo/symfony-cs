@@ -1,3 +1,3 @@
 set -a
-source ./.env.local
+source ./.env.dev
 docker compose up -d

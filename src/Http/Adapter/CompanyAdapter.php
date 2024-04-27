@@ -5,14 +5,8 @@ declare(strict_types = 1);
 namespace App\Http\Adapter;
 
 use App\Domain\Entity\User;
-use App\Http\Request\Candidate\CreateCandidateRequest;
-use App\Http\Request\Candidate\UpdateCandidateRequest;
 use App\Http\Request\Company\CreateCompanyRequest;
-use App\Http\Request\Request;
-use App\Http\Resource\CandidateResource;
 use App\Http\Resource\CompanyResource;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 
 class CompanyAdapter
 {

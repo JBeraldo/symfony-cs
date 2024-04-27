@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 namespace App\Framework\Resolver;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -95,7 +96,7 @@ class RequestPayloadValueResolver implements ValueResolverInterface, EventSubscr
                     $trans = $this->translator ? $this->translator->trans(...) : fn ($m, $p) => strtr($m, $p);
                     foreach ($e->getErrors() as $error) {
                         $parameters = [];
-                        $attribute = ucfirst($error->getPath());
+                        $attribute = ucfirst((string) $error->getPath());
                         $template = "$attribute é obrigatório";
                         $message = $trans($template, $parameters, 'validators');
                         $violations->add(new ConstraintViolation($message, $template, $parameters, null, $error->getPath(), null));

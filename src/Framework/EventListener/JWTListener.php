@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Framework\EventListener;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTAuthenticatedEvent;
@@ -16,7 +18,7 @@ use Symfony\Contracts\Cache\CacheInterface;
 
 class JWTListener
 {
-    public function __construct(private CacheInterface $loginCache,private TokenExtractorInterface $tokenExtractor)
+    public function __construct(private readonly CacheInterface $loginCache,private readonly TokenExtractorInterface $tokenExtractor)
     {
     }
 

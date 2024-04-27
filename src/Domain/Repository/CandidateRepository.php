@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\User;
@@ -24,7 +26,7 @@ class CandidateRepository extends UserRepository
      * @param SkillRepository $skillRepository
      */
     public function __construct(
-        private ManagerRegistry $registry,
+        private readonly ManagerRegistry $registry,
         private readonly UserPasswordHasherInterface $passwordHasher,
         private readonly ExperienceRepository $experienceRepository,
         private readonly SkillRepository $skillRepository
@@ -35,7 +37,6 @@ class CandidateRepository extends UserRepository
 
 
     /**
-     * @param int $candidate_id
      * @return User
      * @throws \Doctrine\ORM\Exception\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException

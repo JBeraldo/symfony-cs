@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Entity;
 
 use App\Domain\Repository\SkillRepository;
@@ -61,7 +63,6 @@ class Skill
     }
 
     /**
-     * @param string $name
      * @return $this
      */
     public function setName(string $name): static
@@ -80,7 +81,6 @@ class Skill
     }
 
     /**
-     * @param Collection $users
      * @return void
      */
     public function setUsers(Collection $users): void

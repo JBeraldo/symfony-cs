@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Http\Adapter;
 
 use App\Domain\Entity\Experience;
-use App\Http\Request\IRequest;
 use App\Http\Resource\ExperienceResource;
 
 class ExperienceAdapter

@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Entity;
 
 use App\Domain\Repository\ExperienceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use const App\Domain\Repository\t;
 
 /**
  *
@@ -68,7 +69,6 @@ class Experience
     }
 
     /**
-     * @param string $company_name
      * @return $this
      */
     public function setCompanyName(string $company_name): static
@@ -87,7 +87,6 @@ class Experience
     }
 
     /**
-     * @param \DateTimeInterface $start_date
      * @return $this
      */
     public function setStartDate(\DateTimeInterface $start_date): static
@@ -106,7 +105,6 @@ class Experience
     }
 
     /**
-     * @param \DateTimeInterface|null $end_date
      * @return $this
      */
     public function setEndDate(?\DateTimeInterface $end_date): static
@@ -125,7 +123,6 @@ class Experience
     }
 
     /**
-     * @param string $position
      * @return $this
      */
     public function setPosition(string $position): static
@@ -144,7 +141,6 @@ class Experience
     }
 
     /**
-     * @param User $candidate
      * @return void
      */
     public function setCandidate(User $candidate): void

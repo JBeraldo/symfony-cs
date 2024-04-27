@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Service;
 
 use App\Domain\Repository\CandidateRepository;
@@ -12,16 +14,12 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
  */
 readonly class CandidateService
 {
-    /**
-     * @param CandidateRepository $candidateRepository
-     */
     public function __construct(
         private CandidateRepository $candidateRepository,
     )
     {}
 
     /**
-     * @param CreateCandidateRequest $candidateDTO
      * @return void
      */
     public function store(CreateCandidateRequest $candidateDTO):void
@@ -29,7 +27,7 @@ readonly class CandidateService
         $user = CandidateAdapter::ResourceToUser($candidateDTO);
         try {
             $this->candidateRepository->store($user);
-        }catch (UniqueConstraintViolationException $e)
+        }catch (UniqueConstraintViolationException)
         {
             throw new \HttpException("Email já utilizado",422);
         }
