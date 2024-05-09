@@ -1,13 +1,10 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace App\Http\Adapter;
 
 use App\Domain\Entity\User;
-use App\Http\Request\Candidate\CreateCandidateRequest;
-use App\Http\Request\Candidate\UpdateCandidateRequest;
 use App\Http\Request\Request;
+use App\Http\Request\User\UpdateUserRequest;
 use App\Http\Resource\CandidateResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -21,7 +18,7 @@ class CandidateAdapter
         $user->setEmail($candidateDTO->email);
         $user->setPassword($candidateDTO->senha);
         $user->setRoles(['ROLE_CANDIDATE']);
-        if($candidateDTO instanceof UpdateCandidateRequest){
+        if($candidateDTO instanceof UpdateUserRequest){
             $user->setExperiences(self::convertExperiencias($candidateDTO->experiencias));
             $user->setSkills(self::convertCompetencias($candidateDTO->competencias));
         }
@@ -77,5 +74,14 @@ class CandidateAdapter
             $skills_array->add(SkillAdapter::requestToSkill($c));
         }
         return $skills_array;
+    }
+
+    public static function RequestToUser(User $user,array $payload): User
+    {
+        $user->setUsername($payload['nome']);
+        $user->setEmail($payload['email']);
+        $user->setExperiences(self::convertExperiencias($payload['experiencias']));
+        $user->setSkills(self::convertCompetencias($payload['competencias']));
+        return $user;
     }
 }

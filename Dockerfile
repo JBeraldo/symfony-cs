@@ -51,6 +51,6 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN  composer install --no-dev --classmap-authoritative
+RUN  composer install --no-scripts --no-dev --classmap-authoritative
 
 USER $user

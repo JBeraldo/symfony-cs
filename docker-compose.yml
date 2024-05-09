@@ -1,6 +1,6 @@
 services:
     api-zero:
-        container_name: symfony-zero
+        container_name: symfony
         build:
             context: .
             dockerfile: Dockerfile
@@ -17,6 +17,7 @@ services:
             PHP_OPCACHE_JIT: "tracing"
         volumes:
             - ./src/:/var/www/src:rw
+            - ./docker/php/conf.d/fpm.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
         networks:
             - api-network
     web-server:
@@ -25,7 +26,6 @@ services:
         restart: unless-stopped
         ports:
             - "80:80"
-            - "443:443"
         volumes:
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/

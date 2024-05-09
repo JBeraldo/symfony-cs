@@ -51,4 +51,9 @@ readonly class UserService
         $this->userRepository->destroy($user);
     }
 
+    public function update()
+    {
+
+    }
+
 }

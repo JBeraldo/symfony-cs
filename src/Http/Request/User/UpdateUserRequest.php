@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace App\Http\Request\Candidate;
+namespace App\Http\Request\User;
 
 use App\Http\Request\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class UpdateCandidateRequest implements Request {
+class UpdateUserRequest implements Request {
     public function __construct(
         #[Assert\NotBlank(
             message: 'Nome não deve ser nulo'
@@ -45,18 +45,30 @@ class UpdateCandidateRequest implements Request {
             type: 'array',
             message: "Competencias deve ser um vetor"
         )]
-        #[Assert\NotBlank(
-            message: 'Competencias não deve ser nula'
-        )]
         public array $competencias,
         #[Assert\Type(
             type: 'array',
             message: "Experiências deve ser um vetor"
         )]
-        #[Assert\NotBlank(
-            message: 'Experiências não deve ser nula'
+        public array $experiencias,
+        #[Assert\Type(
+            type: 'string',
+            message: "Ramo deve ser texto"
         )]
-        public array $experiencias
+        #[Assert\Length(
+            min: 3,
+            minMessage: 'Seu ramo deve ter no mínimo 3 caractéres',
+        )]
+        public string $ramo,
+        #[Assert\Length(
+            min: 10,
+            minMessage: 'Sua descrição deve ter no mínimo 10 caractéres',
+        )]
+        #[Assert\Type(
+            type: 'string',
+            message: "Descrição deve ser texto"
+        )]
+        public string $descricao
     )
     {
 

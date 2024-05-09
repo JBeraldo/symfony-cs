@@ -4,12 +4,10 @@ declare(strict_types = 1);
 
 namespace App\Http\Controller;
 
-use App\Domain\Service\CandidateService;
 use App\Domain\Service\CompanyService;
 use App\Framework\Resolver\RequestPayloadValueResolver;
-use App\Http\Request\Candidate\CreateCandidateRequest;
-use App\Http\Request\Candidate\UpdateCandidateRequest;
 use App\Http\Request\Company\CreateCompanyRequest;
+use App\Http\Request\User\UpdateUserRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
@@ -32,7 +30,7 @@ class CompanyController extends AbstractController
     }
 
     #[Route('/empresa', name: 'update',methods: ['PUT'], format: 'json')]
-    public function update(#[MapRequestPayload(resolver: RequestPayloadValueResolver::class)] UpdateCandidateRequest $candidateDTO): Response
+    public function update(#[MapRequestPayload(resolver: RequestPayloadValueResolver::class)] UpdateUserRequest $candidateDTO): Response
     {
         $this->service->update($candidateDTO);
         return $this->json(["mensagem" => "Usuário cadastrado com sucesso"], Response::HTTP_OK);

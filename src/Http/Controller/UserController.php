@@ -5,11 +5,14 @@ declare(strict_types = 1);
 namespace App\Http\Controller;
 
 use App\Domain\Service\UserService;
+use App\Framework\Resolver\RequestPayloadValueResolver;
+use App\Http\Request\User\UpdateUserRequest;
 use Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\TokenExtractorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 
@@ -34,7 +37,14 @@ class UserController extends AbstractController
     {
         $this->service->destroy();
 
-        return new JsonResponse(["message"=>"usuário excluído"],Response::HTTP_OK);
+        return $this->json(["message"=>"usuário excluído"]);
+    }
+
+    #[Route('/usuario', name: 'update',methods: ['PUT'], format: 'json')]
+    public function update(#[MapRequestPayload(resolver: RequestPayloadValueResolver::class)] UpdateUserRequest $userDTO): Response
+    {
+        $this->service->update($userDTO);
+        return $this->json(["mensagem" => "Usuário atualizado com sucesso"], Response::HTTP_OK);
     }
 
     #[Route('/logout', name: 'user_logout', methods: ['POST'])]
@@ -43,6 +53,6 @@ class UserController extends AbstractController
         $token = ($this->tokenExtractor->extract($request));
 
         $this->loginCache->delete($token);
-        return new JsonResponse(["message"=>"Deslogado com sucesso"],Response::HTTP_OK);
+        return new JsonResponse(["mensagem"=>"Deslogado com sucesso"],Response::HTTP_OK);
     }
 }
