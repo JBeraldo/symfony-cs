@@ -17,6 +17,7 @@ services:
             PHP_OPCACHE_JIT: "tracing"
         volumes:
             - ./src/:/var/www/src:rw
+            - ./var:/var/www/var
             - ./docker/php/conf.d/fpm.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
         networks:
             - api-network

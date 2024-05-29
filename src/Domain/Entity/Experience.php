@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  */
 #[ORM\Entity(repositoryClass: ExperienceRepository::class)]
-#[ORM\Cache(usage: 'READ_ONLY')]
+#[ORM\Cache(usage: 'NONSTRICT_READ_WRITE')]
 class Experience
 {
     /**
@@ -89,9 +89,9 @@ class Experience
     /**
      * @return $this
      */
-    public function setStartDate(\DateTimeInterface $start_date): static
+    public function setStartDate(string $start_date): static
     {
-        $this->start_date = $start_date;
+        $this->start_date = new \DateTime($start_date);
 
         return $this;
     }
@@ -107,9 +107,9 @@ class Experience
     /**
      * @return $this
      */
-    public function setEndDate(?\DateTimeInterface $end_date): static
+    public function setEndDate(string $end_date): static
     {
-        $this->end_date = $end_date;
+        $this->end_date = new \DateTime($end_date) ;
 
         return $this;
     }

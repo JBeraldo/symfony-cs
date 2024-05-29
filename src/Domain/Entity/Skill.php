@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity(repositoryClass: SkillRepository::class)]
 #[ORM\Table(name: '`skill`')]
-#[ORM\Cache(usage: 'READ_ONLY')]
+#[ORM\Cache(usage: 'NONSTRICT_READ_WRITE')]
 class Skill
 {
     /**
@@ -34,7 +34,7 @@ class Skill
     /**
      * @var Collection|ArrayCollection
      */
-    #[ORM\ManyToMany(targetEntity: User::class,inversedBy: 'skills')]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'skills', cascade: ['all'])]
     #[ORM\JoinTable('users_skills')]
     private Collection $users;
 
@@ -52,6 +52,14 @@ class Skill
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return void
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     /**

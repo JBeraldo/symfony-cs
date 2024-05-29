@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Service;
 
+use App\Domain\Entity\User;
 use App\Domain\Repository\CandidateRepository;
+use App\Domain\Repository\ExperienceRepository;
 use App\Domain\Repository\UserRepository;
 use App\Http\Adapter\CandidateAdapter;
 use App\Http\Adapter\CompanyAdapter;
+use App\Http\Request\User\UpdateUserRequest;
 use App\Http\Resource\UserResource;
 use Symfony\Bundle\SecurityBundle\Security;
 
@@ -18,6 +21,7 @@ readonly class UserService
 {
     public function __construct(
         private CandidateRepository $candidateRepository,
+        private ExperienceRepository $experienceRepository,
         private UserRepository $userRepository,
         private Security $security
     )
@@ -51,8 +55,16 @@ readonly class UserService
         $this->userRepository->destroy($user);
     }
 
-    public function update()
+    public function update(UpdateUserRequest $updateUserRequest): void
     {
+        $user = $this->security->getUser();
+
+        if($user->isCandidate()){
+            $this->candidateRepository->update($user->getId(),$updateUserRequest);
+        }
+        else{
+            $this->userRepository->update($user->getId(),$updateUserRequest);
+        }
 
     }
 

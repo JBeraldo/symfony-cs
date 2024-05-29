@@ -20,24 +20,34 @@ class ExperienceAdapter
         return $resource;
     }
 
-    public static function requestToExperience(array $experience): Experience
+    public static function requestToExperience(array $experiencia): Experience
     {
         $experience = new Experience();
-        $experience->setPosition($experience['cargo']);
-        $experience->setCompanyName($experience['nome_empresa']);
-        $experience->setEndDate($experience['fim']);
-        $experience->setStartDate($experience['inicio']);
-        $experience->setId($experience['id']);
+        $experience->setPosition($experiencia['cargo']);
+        $experience->setCompanyName($experiencia['nome_empresa']);
+        if(!is_null($experiencia['fim'])){
+            $experience->setEndDate($experiencia['fim']);
+        }
+        $experience->setStartDate($experiencia['inicio']);
+        if(isset($experiencia['id'])){
+            $experience->setId($experiencia['id']);
+        }
         return $experience;
+    }
+
+    public static function updateExperience(Experience $old_experience,Experience $experience): Experience
+    {
+        $old_experience->setPosition($experience->getPosition());
+        $old_experience->setCompanyName($experience->getCompanyName());
+        if(!is_null($experience->getEndDate())){
+            $old_experience->setEndDate($experience->getEndDate()->format('Y-m-d'));
+        }
+        $old_experience->setStartDate($experience->getStartDate()->format('Y-m-d'));
+        return $old_experience;
     }
 
     private static function DateToResouceDate(?\DateTime $datetime): ?string
     {
-        if($datetime === null){
-            return null;
-        }
-        $month = $datetime->format('M');
-        $year = $datetime->format('Y');
-        return  "$month/$year";
+        return $datetime?->format('Y-m-d');
     }
 }

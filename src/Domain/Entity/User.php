@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[ORM\Cache(usage: 'READ_ONLY')]
+#[ORM\Cache(usage: 'NONSTRICT_READ_WRITE')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -65,15 +65,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $username = null;
     /**
-     * @var Collection|ArrayCollection
+     * @var ArrayCollection|Collection
      */
-    #[ORM\OneToMany(targetEntity: Experience::class, mappedBy: 'candidate',cascade: ['all'])]
-    private Collection $experiences;
+    #[ORM\OneToMany(targetEntity: Experience::class, mappedBy: 'candidate',cascade: ['persist','remove','refresh'])]
+    private Collection|ArrayCollection $experiences;
     /**
-     * @var Collection|ArrayCollection
+     * @var ArrayCollection|Collection
      */
-    #[ORM\ManyToMany(targetEntity: Skill::class, mappedBy: 'users',cascade: ['all'])]
-    private Collection $skills;
+    #[ORM\ManyToMany(targetEntity: Skill::class, mappedBy: 'users', cascade: ['persist','detach','refresh'])]
+    private Collection|ArrayCollection $skills;
 
     /**
      *

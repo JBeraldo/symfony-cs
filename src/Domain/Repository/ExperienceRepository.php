@@ -67,4 +67,12 @@ class ExperienceRepository extends ServiceEntityRepository
 
             return new ArrayCollection($result);
         }
+    /**
+     * @return void
+     */
+    public function destroy(Experience $xp): void
+    {
+        $this->getEntityManager()->remove($xp);
+        $this->getEntityManager()->flush();
+    }
 }

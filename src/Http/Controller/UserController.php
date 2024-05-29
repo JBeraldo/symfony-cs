@@ -35,6 +35,10 @@ class UserController extends AbstractController
     #[Route('/usuario', name: 'user_delete', methods: ['DELETE'])]
     public function destroy(Request $request)
     {
+        $token = ($this->tokenExtractor->extract($request));
+
+        $this->loginCache->delete($token);
+        
         $this->service->destroy();
 
         return $this->json(["message"=>"usuário excluído"]);

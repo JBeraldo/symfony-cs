@@ -5,24 +5,23 @@ declare(strict_types = 1);
 namespace App\Http\Adapter;
 
 use App\Domain\Entity\User;
-use App\Http\Request\Company\CreateCompanyRequest;
+use App\Http\Request\Request;
+use App\Http\Request\User\UpdateUserRequest;
 use App\Http\Resource\CompanyResource;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class CompanyAdapter
 {
-    public static function ResourceToUser(CreateCompanyRequest $companyDTO): User
+    public static function ResourceToUser(Request $companyDTO, UserInterface $user = new User()): User
     {
-        $user = new User();
         $user->setUsername($companyDTO->nome);
         $user->setEmail($companyDTO->email);
-        $user->setPassword($companyDTO->senha);
         $user->setSegment($companyDTO->ramo);
         $user->setDescription($companyDTO->descricao);
         $user->setRoles(['ROLE_COMPANY']);
-        /*if ($companyDTO instanceof UpdateCandidateRequest) {
-            $user->setExperiences(self::convertExperiencias($companyDTO->experiencias));
-            $user->setSkills(self::convertCompetencias($companyDTO->competencias));
-        }*/
+        if(!$companyDTO instanceof UpdateUserRequest){
+            $user->setPassword($companyDTO->senha);
+        }
         return $user;
     }
 

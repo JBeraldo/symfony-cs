@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\User;
+use App\Domain\Service\CandidateService;
+use App\Http\Adapter\CandidateAdapter;
+use App\Http\Adapter\CompanyAdapter;
+use App\Http\Adapter\ExperienceAdapter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -68,7 +70,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function destroy(User $user): void
     {
-
         $this->getEntityManager()->remove($user);
         $this->getEntityManager()->flush();
     }
@@ -97,4 +98,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function update(int $id, $data): void
+    {
+        $model = $this->getEntityManager()->getRepository(User::class)->find($id);
+        $model = CompanyAdapter::ResourceToUser($data,$model);
+
+        if ($data->senha !== null) {
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $model,
+                $data->senha
+            );
+            $model->setPassword($hashedPassword);
+        }
+        $this->getEntityManager()->persist($model);
+        $this->getEntityManager()->flush();
+    }
+
 }

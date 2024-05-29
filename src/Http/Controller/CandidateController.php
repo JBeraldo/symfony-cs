@@ -20,7 +20,7 @@ class CandidateController extends AbstractController
     {
     }
 
-    #[Route('/candidato', name: 'store',methods: ['POST'], format: 'json')]
+    #[Route('/candidatos', name: 'store',methods: ['POST'], format: 'json')]
     public function store(#[MapRequestPayload(resolver: RequestPayloadValueResolver::class)] CreateCandidateRequest $candidateDTO): Response
     {
         $this->service->store($candidateDTO);

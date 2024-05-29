@@ -6,7 +6,7 @@ namespace App\Http\Resource;
 
 class CandidateResource extends UserResource {
     private array $competencias;
-    private array $experiencias;
+    private array $experiencia;
     public function __construct(
 
     )
@@ -24,13 +24,13 @@ class CandidateResource extends UserResource {
         $this->competencias = $competencias;
     }
 
-    public function getExperiencias(): array
+    public function getExperiencia(): array
     {
-        return $this->experiencias;
+        return $this->experiencia;
     }
 
-    public function setExperiencias(array $experiencias): void
+    public function setExperiencia(array $experiencia): void
     {
-        $this->experiencias = $experiencias;
+        $this->experiencia = $experiencia;
     }
 }

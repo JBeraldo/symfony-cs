@@ -6,6 +6,7 @@ namespace App\Http\Adapter;
 
 use App\Domain\Entity\Skill;
 use App\Http\Resource\SkillResource;
+use Doctrine\Common\Collections\Collection;
 
 class SkillAdapter
 {
@@ -17,11 +18,21 @@ class SkillAdapter
         return $resource;
     }
 
-    public static function requestToSkill(array $skill): Skill
+    public static function requestToSkill(array $skill_array): Skill
     {
-        $resource = new SkillResource();
-        $resource->setId($skill->getId());
-        $resource->setNome($skill->getName());
-        return $resource;
+        $skill = new Skill();
+        $skill->setId($skill_array['id']);
+        $skill->setName($skill_array['nome']);
+        return $skill;
+    }
+
+    public static function convertSkills(Collection $skills):array
+    {
+        $skills_array = [];
+        foreach ($skills as $s)
+        {
+            $skills_array[] = SkillAdapter::skillToResource($s);
+        }
+        return $skills_array;
     }
 }
