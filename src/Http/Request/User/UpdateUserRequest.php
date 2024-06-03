@@ -34,7 +34,7 @@ class UpdateUserRequest implements Request {
             message: 'O email {{ value }} não é valido.',
         )]
         public string $email,
-        public string $senha,
+        public ?string $senha,
         #[Assert\All([
             new Assert\Collection([
                 'fields' => [

@@ -12,6 +12,7 @@ use App\Http\Adapter\ExperienceAdapter;
 use App\Http\Request\Candidate\CreateCandidateRequest;
 use App\Http\Request\Company\CreateCompanyRequest;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  *
@@ -38,7 +39,7 @@ readonly class CompanyService
             $this->companyRepository->store($user);
         }catch (UniqueConstraintViolationException)
         {
-            throw new \HttpException("Email já utilizado",422);
+            throw new HttpException(422,"Email já utilizado");
         }
     }
 
