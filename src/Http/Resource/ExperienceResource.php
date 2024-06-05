@@ -1,9 +1,6 @@
 <?php
 
 namespace App\Http\Resource;
-
-use Symfony\Component\Serializer\Attribute\SerializedName;
-#[Seria]
 class ExperienceResource
 {
     private int $id;

@@ -16,7 +16,9 @@ services:
             PHP_OPCACHE_JIT_BUFFER_SIZE: "100M"
             PHP_OPCACHE_JIT: "tracing"
         volumes:
+            - ./config/:/var/www/config:rw
             - ./src/:/var/www/src:rw
+            - ./migrations/:/var/www/migrations:rw
             - ./var:/var/www/var
             - ./docker/php/conf.d/fpm.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
         networks:

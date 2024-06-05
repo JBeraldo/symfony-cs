@@ -7,7 +7,7 @@ use App\Http\Adapter\CandidateAdapter;
 use App\Http\Adapter\SkillAdapter;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class SkillService
+readonly class SkillService
 {
     public function __construct(private SkillRepository $skillRepository)
     {

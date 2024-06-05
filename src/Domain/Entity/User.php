@@ -72,6 +72,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var ArrayCollection|Collection
      */
+    #[ORM\OneToMany(targetEntity: Job::class, mappedBy: 'company',cascade: ['persist','remove','refresh'])]
+    private Collection|ArrayCollection $jobs;
+    /**
+     * @var ArrayCollection|Collection
+     */
     #[ORM\ManyToMany(targetEntity: Skill::class, mappedBy: 'users', cascade: ['persist','detach','refresh'])]
     private Collection|ArrayCollection $skills;
 
@@ -82,6 +87,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->experiences = new ArrayCollection();
         $this->skills = new ArrayCollection();
+        $this->jobs = new ArrayCollection();
     }
 
     /**
@@ -274,6 +280,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSkills(Collection $skills): void
     {
         $this->skills = $skills;
+    }
+
+    public function getJobs(): ArrayCollection|Collection
+    {
+        return $this->jobs;
+    }
+
+    public function setJobs(ArrayCollection|Collection $jobs): void
+    {
+        $this->jobs = $jobs;
     }
 
 }

@@ -57,6 +57,7 @@ class CandidateRepository extends UserRepository
                 $skill->getUsers()->add($model);
             }
         }
+
         foreach ($data->experiencia as $xp_data) {
             $xp_dto = ExperienceAdapter::requestToExperience($xp_data);
             if ($xp_dto->getId() === null) {

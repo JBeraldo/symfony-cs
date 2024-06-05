@@ -38,12 +38,17 @@ class Skill
     #[ORM\JoinTable('users_skills')]
     private Collection $users;
 
+    #[ORM\ManyToMany(targetEntity: Job::class, inversedBy: 'skills', cascade: ['all'])]
+    #[ORM\JoinTable('jobs_skills')]
+    private Collection $jobs;
+
     /**
      *
      */
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->jobs = new ArrayCollection();
     }
 
     /**
@@ -94,6 +99,16 @@ class Skill
     public function setUsers(Collection $users): void
     {
         $this->users = $users;
+    }
+
+    public function getJobs(): Collection
+    {
+        return $this->jobs;
+    }
+
+    public function setJobs(Collection $jobs): void
+    {
+        $this->jobs = $jobs;
     }
 
 }
