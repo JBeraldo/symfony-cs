@@ -19,6 +19,7 @@
  - Clone the project
     ```bash
     git clone https://github.com/JBeraldo/symfony-cs.git
+    cd symfony-cs
     ```
  - Run with make
     ```bash
