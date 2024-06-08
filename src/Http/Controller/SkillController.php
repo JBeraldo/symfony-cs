@@ -6,6 +6,7 @@ namespace App\Http\Controller;
 
 use App\Domain\Service\SkillService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -18,7 +19,7 @@ class SkillController extends AbstractController
     }
 
     #[Route('/competencias', name: 'skills_get', methods: ['GET'])]
-    public function get(Request $request): \Symfony\Component\HttpFoundation\JsonResponse
+    public function get(Request $request): JsonResponse
     {
         $skills = $this->service->getAllSkills();
         return $this->json($skills);

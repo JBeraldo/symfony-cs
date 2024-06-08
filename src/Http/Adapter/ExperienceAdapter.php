@@ -6,6 +6,7 @@ namespace App\Http\Adapter;
 
 use App\Domain\Entity\Experience;
 use App\Http\Resource\ExperienceResource;
+use DateTime;
 
 class ExperienceAdapter
 {
@@ -46,7 +47,7 @@ class ExperienceAdapter
         return $old_experience;
     }
 
-    private static function DateToResouceDate(?\DateTime $datetime): ?string
+    private static function DateToResouceDate(?DateTime $datetime): ?string
     {
         return $datetime?->format('Y-m-d');
     }

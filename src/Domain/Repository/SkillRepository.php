@@ -66,7 +66,6 @@ class SkillRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
-        ;
         return new ArrayCollection($result);
     }
 }

@@ -6,9 +6,7 @@ namespace App\Domain\Service;
 
 use App\Domain\Repository\CandidateRepository;
 use App\Domain\Repository\UserRepository;
-use App\Http\Adapter\CandidateAdapter;
 use App\Http\Adapter\CompanyAdapter;
-use App\Http\Adapter\ExperienceAdapter;
 use App\Http\Request\Candidate\CreateCandidateRequest;
 use App\Http\Request\Company\CreateCompanyRequest;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;

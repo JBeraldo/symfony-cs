@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controller;
 
-use App\Domain\Service\JobSectorService;
 use App\Domain\Service\JobService;
 use App\Framework\Resolver\RequestPayloadValueResolver;
-use App\Http\Request\Candidate\CreateCandidateRequest;
 use App\Http\Request\Job\CreateJobRequest;
 use App\Http\Request\Job\UpdateJobRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;

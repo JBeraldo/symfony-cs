@@ -10,12 +10,9 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTExpiredEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTInvalidEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTNotFoundEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
-use Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\TokenExtractorInterface;
 use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 
 class JWTListener
@@ -29,7 +26,7 @@ class JWTListener
 
     public function onJWTAuthenticated(JWTAuthenticatedEvent $event): void
     {
-        $user_id = base64_encode($event->getPayload()['email']);
+        $user_id = base64_encode((string) $event->getPayload()['email']);
         $this->loginCache->get($user_id,function (CacheItem $item){
             if(!$item->isHit()){
                 throw new HttpException(401,"Usuário não está logado");
@@ -39,7 +36,7 @@ class JWTListener
 
     public function onJWTEncoded(JWTEncodedEvent $event): void
     {
-        $user_id = base64_encode($this->JWTTokenManager->parse($event->getJWTString())['email']);
+        $user_id = base64_encode((string) $this->JWTTokenManager->parse($event->getJWTString())['email']);
         $this->loginCache->get($user_id,function (CacheItem $item)use ($event){
             $ttl = (int) $_ENV['LOGIN_KEY_TTL'];
             $item->set($event->getJWTString());

@@ -3,14 +3,10 @@
 namespace App\Domain\Service;
 
 use App\Domain\Repository\JobRepository;
-use App\Domain\Repository\JobSectorRepository;
 use App\Http\Adapter\JobAdapter;
-use App\Http\Adapter\JobSectorAdapter;
 use App\Http\Request\Job\CreateJobRequest;
 use App\Http\Request\Job\UpdateJobRequest;
 use App\Http\Resource\JobResource;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Bundle\SecurityBundle\Security;
 
 readonly class JobService
@@ -43,7 +39,7 @@ readonly class JobService
         return JobAdapter::JobToResouceList($this->jobRepository->find($id));
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): void
     {
         $job = $this->jobRepository->find($id);
         $this->jobRepository->destroy($job);

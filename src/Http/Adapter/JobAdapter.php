@@ -3,12 +3,8 @@
 namespace App\Http\Adapter;
 
 use App\Domain\Entity\Job;
-use App\Domain\Entity\User;
 use App\Http\Request\Job\CreateJobRequest;
 use App\Http\Request\Job\UpdateJobRequest;
-use App\Http\Request\Request;
-use App\Http\Request\User\UpdateUserRequest;
-use App\Http\Resource\CandidateResource;
 use App\Http\Resource\JobResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

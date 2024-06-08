@@ -3,9 +3,9 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+            target: dev
         image: php83-swoole
         restart: unless-stopped
-        working_dir: /var/www/
         expose:
             -   8000
         environment:
@@ -13,10 +13,7 @@ services:
             SWOOLE_HOST: '0.0.0.0'
             SWOOLE_PORT: '8000'
         volumes:
-            - ./config/:/var/www/config:rw
-            - ./src/:/var/www/src:rw
-            - ./migrations/:/var/www/migrations:rw
-            - ./var:/var/www/var
+            - ./:/var/www:rw
         networks:
             - api-network
     web-server:

@@ -3,7 +3,6 @@
 namespace App\Domain\Service;
 
 use App\Domain\Repository\SkillRepository;
-use App\Http\Adapter\CandidateAdapter;
 use App\Http\Adapter\SkillAdapter;
 use Doctrine\Common\Collections\ArrayCollection;
 

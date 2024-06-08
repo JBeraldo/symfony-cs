@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Service;
 
-use App\Domain\Entity\User;
 use App\Domain\Repository\CandidateRepository;
 use App\Domain\Repository\ExperienceRepository;
 use App\Domain\Repository\UserRepository;
@@ -12,6 +11,8 @@ use App\Http\Adapter\CandidateAdapter;
 use App\Http\Adapter\CompanyAdapter;
 use App\Http\Request\User\UpdateUserRequest;
 use App\Http\Resource\UserResource;
+use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Symfony\Bundle\SecurityBundle\Security;
 
 /**
@@ -29,8 +30,8 @@ readonly class UserService
 
     /**
      * @return UserResource
-     * @throws \Doctrine\ORM\Exception\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function currentUser(): UserResource
     {

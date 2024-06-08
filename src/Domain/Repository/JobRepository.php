@@ -55,7 +55,7 @@ class JobRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function store(CreateJobRequest $request,User $user)
+    public function store(CreateJobRequest $request,User $user): void
     {
         $job = JobAdapter::ResourceToJob($request);
         $sector = $this->sectorRepository->find($request->ramo_id);
@@ -75,7 +75,7 @@ class JobRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
-    public function update(UpdateJobRequest $request,User $user)
+    public function update(UpdateJobRequest $request,User $user): void
     {
         $job_model = $this->find($request->id);
         $job_model = JobAdapter::ResourceToJob($request, $job_model);

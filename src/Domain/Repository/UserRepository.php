@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\User;
-use App\Domain\Service\CandidateService;
-use App\Http\Adapter\CandidateAdapter;
 use App\Http\Adapter\CompanyAdapter;
-use App\Http\Adapter\ExperienceAdapter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;

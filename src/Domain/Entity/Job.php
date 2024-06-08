@@ -6,7 +6,6 @@ use App\Domain\Repository\JobRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Boolean;
 
 #[ORM\Entity(repositoryClass: JobRepository::class)]
 class Job
@@ -38,7 +37,7 @@ class Job
     private float $minimumSalary;
 
     #[ORM\Column(nullable: true)]
-    private ?float $maximum_salary;
+    private ?float $maximum_salary = null;
 
     #[ORM\Column]
     private bool $active;

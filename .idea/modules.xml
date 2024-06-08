@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../learning-symfony/.idea/sinfonia.iml" filepath="$PROJECT_DIR$/../learning-symfony/.idea/sinfonia.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/symfony-cs.iml" filepath="$PROJECT_DIR$/.idea/symfony-cs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/symfony-swoole.iml" filepath="$PROJECT_DIR$/.idea/symfony-swoole.iml" />
     </modules>
   </component>
 </project>

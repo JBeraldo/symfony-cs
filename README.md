@@ -10,6 +10,17 @@
 
 ## Infrastructure
  ![img](docs/infra.png)
- 
+
+## Dependencies
+- Docker
+- Make
 ## Steps to run
- TODO!!!
+ 
+ - Clone the project
+    ```bash
+    git clone https://github.com/JBeraldo/symfony-cs.git
+    ```
+ - Run with make
+    ```bash
+    make dev
+    ```

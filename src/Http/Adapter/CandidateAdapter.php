@@ -4,7 +4,6 @@ namespace App\Http\Adapter;
 
 use App\Domain\Entity\User;
 use App\Http\Request\Request;
-use App\Http\Request\User\UpdateUserRequest;
 use App\Http\Resource\CandidateResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

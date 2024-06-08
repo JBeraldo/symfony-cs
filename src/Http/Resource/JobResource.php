@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Resource;
 
-use App\Domain\Entity\JobSector;
 use App\Http\Request\Request;
 
 class JobResource implements Request
@@ -14,8 +13,8 @@ class JobResource implements Request
     public string $descricao;
     public int $experiencia;
     public float $salario_min;
-    public ?float $salario_max;
-    public ?array $competencias;
+    public ?float $salario_max = null;
+    public ?array $competencias = null;
     public bool $ativo;
     public int $empresa_id;
     public JobSectorResource $ramo;
