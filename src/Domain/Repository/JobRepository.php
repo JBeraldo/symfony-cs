@@ -6,6 +6,7 @@ use App\Domain\Entity\Job;
 use App\Domain\Entity\User;
 use App\Http\Adapter\JobAdapter;
 use App\Http\Request\Job\CreateJobRequest;
+use App\Http\Request\Job\UpdateJobRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
@@ -74,11 +75,39 @@ class JobRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
+    public function update(UpdateJobRequest $request,User $user)
+    {
+        $job_model = $this->find($request->id);
+        $job_model = JobAdapter::ResourceToJob($request, $job_model);
+
+        $sector = $this->sectorRepository->find($request->ramo_id);
+
+        $job_model->setJobSector($sector);
+        $job_model->setCompany($user);
+
+        foreach ($request->competencias as $competencia) {
+            $skill = $this->skillRepository->find($competencia['id']);
+            if (!$job_model->getSkills()->contains($skill)) {
+                $job_model->getSkills()->add($skill);
+                $skill->getJobs()->add($job_model);
+            }
+        }
+
+        $this->getEntityManager()->persist($job_model);
+        $this->getEntityManager()->flush();
+    }
+
     public function getByCompany(User $user)
     {
         $result = $this->getEntityManager()->createQuery('SELECT j FROM App\Domain\Entity\Job j WHERE j.company = :company')
             ->setParameter('company', $user)
             ->getResult();
         return new ArrayCollection($result);
+    }
+
+    public function destroy(Job $job): void
+    {
+        $this->getEntityManager()->remove($job);
+        $this->getEntityManager()->flush();
     }
 }

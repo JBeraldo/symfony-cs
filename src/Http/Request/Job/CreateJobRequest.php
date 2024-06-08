@@ -24,7 +24,7 @@ class CreateJobRequest implements Request {
         #[Assert\NotBlank(
             message: 'Descrição não deve ser nulo'
         )]
-        public string $descrição,
+        public string $descricao,
         #[Assert\Type(
             type: 'int',
             message: "Ramo deve ser inteiro"
@@ -32,7 +32,7 @@ class CreateJobRequest implements Request {
         #[Assert\NotBlank(
             message: 'Ramo não deve ser nulo'
         )]
-        public int $ramo_id,
+        public int    $ramo_id,
         #[Assert\Type(
             type: 'int',
             message: "Experiência deve ser inteiro"
@@ -40,7 +40,7 @@ class CreateJobRequest implements Request {
         #[Assert\NotBlank(
             message: 'Experiência não deve ser nula'
         )]
-        public int $experiencia,
+        public int    $experiencia,
         #[Assert\Type(
             type: 'float',
             message: "Salário minímo deve ser real"
@@ -66,9 +66,6 @@ class CreateJobRequest implements Request {
         #[Assert\Type(
             type: 'bool',
             message: "Ativo deve ser booleano"
-        )]
-        #[Assert\NotBlank(
-            message: 'Ativo não deve ser nulo'
         )]
         public bool $ativo,
     )

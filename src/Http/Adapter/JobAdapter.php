@@ -5,6 +5,7 @@ namespace App\Http\Adapter;
 use App\Domain\Entity\Job;
 use App\Domain\Entity\User;
 use App\Http\Request\Job\CreateJobRequest;
+use App\Http\Request\Job\UpdateJobRequest;
 use App\Http\Request\Request;
 use App\Http\Request\User\UpdateUserRequest;
 use App\Http\Resource\CandidateResource;
@@ -15,21 +16,22 @@ use Doctrine\Common\Collections\Collection;
 class JobAdapter
 {
 
-    public static function ResourceToJob(CreateJobRequest $jobDTO, Job $job = new Job()): Job
+    public static function ResourceToJob(CreateJobRequest | UpdateJobRequest $jobDTO, Job $job = new Job()): Job
     {
         $job->setActive($jobDTO->ativo);
         $job->setMaximumSalary($jobDTO->salario_max);
         $job->setMinimumSalary($jobDTO->salario_min);
         $job->setExperience($jobDTO->experiencia);
         $job->setTitle($jobDTO->titulo);
-        $job->setDescription($jobDTO->descrição);
+        $job->setDescription($jobDTO->descricao);
         return $job;
     }
 
     public static function JobToResouceList(Job $job): JobResource
     {
         $resource = new JobResource();
-        $resource->setDescrição($job->getDescription());
+        $resource->setId($job->getId());
+        $resource->setDescricao($job->getDescription());
         $resource->setCompetencias(SkillAdapter::convertSkills($job->getSkills()));
         $resource->setAtivo($job->isActive());
         $resource->setTitulo($job->getTitle());
@@ -37,7 +39,6 @@ class JobAdapter
         $resource->setSalarioMin($job->getMinimumSalary());
         $resource->setExperiencia($job->getExperience());
         $resource->setEmpresaId($job->getCompany()->getId());
-        $resource->setRamoId($job->getJobSector()->getId());
         $resource->setRamo(JobSectorAdapter::sectorToResource($job->getJobSector()));
         return $resource;
     }

@@ -16,7 +16,7 @@ class JobSectorAdapter
         $resource = new JobSectorResource();
         $resource->setId($sector->getId());
         $resource->setNome($sector->getName());
-        $resource->setDescrição($sector->getDescription());
+        $resource->setDescricao($sector->getDescription());
         return $resource;
     }
 

@@ -21,7 +21,6 @@ class SkillController extends AbstractController
     public function get(Request $request): \Symfony\Component\HttpFoundation\JsonResponse
     {
         $skills = $this->service->getAllSkills();
-
         return $this->json($skills);
     }
 }
