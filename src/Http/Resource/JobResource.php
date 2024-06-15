@@ -9,9 +9,9 @@ use App\Http\Request\Request;
 
 class JobResource implements Request
 {
+    public int $id;
     public string $titulo;
-    public string $descrição;
-    public int $ramo_id;
+    public string $descricao;
     public int $experiencia;
     public float $salario_min;
     public ?float $salario_max;
@@ -35,24 +35,14 @@ class JobResource implements Request
         $this->titulo = $titulo;
     }
 
-    public function getDescrição(): string
+    public function getDescricao(): string
     {
-        return $this->descrição;
+        return $this->descricao;
     }
 
-    public function setDescrição(string $descrição): void
+    public function setDescricao(string $descricao): void
     {
-        $this->descrição = $descrição;
-    }
-
-    public function getRamoId(): int
-    {
-        return $this->ramo_id;
-    }
-
-    public function setRamoId(int $ramo_id): void
-    {
-        $this->ramo_id = $ramo_id;
+        $this->descricao = $descricao;
     }
 
     public function getExperiencia(): int
@@ -109,7 +99,6 @@ class JobResource implements Request
     {
         return $this->empresa_id;
     }
-
     public function setEmpresaId(int $empresa_id): void
     {
         $this->empresa_id = $empresa_id;
@@ -123,6 +112,16 @@ class JobResource implements Request
     public function setRamo(JobSectorResource $ramo): void
     {
         $this->ramo = $ramo;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
 

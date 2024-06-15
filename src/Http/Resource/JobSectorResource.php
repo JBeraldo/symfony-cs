@@ -7,16 +7,16 @@ class JobSectorResource
     private int $id;
     private string $nome;
 
-    private string $descrição;
+    private string $descricao;
 
-    public function getDescrição(): string
+    public function getDescricao(): string
     {
-        return $this->descrição;
+        return $this->descricao;
     }
 
-    public function setDescrição(string $descrição): void
+    public function setDescricao(string $descricao): void
     {
-        $this->descrição = $descrição;
+        $this->descricao = $descricao;
     }
 
     public function getId(): int

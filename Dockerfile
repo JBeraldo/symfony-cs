@@ -1,8 +1,6 @@
-FROM php:8.3.6-fpm
+FROM php:8.3.6-fpm as base
 
-# Arguments
-ARG user=php_user
-ARG uid=1000
+WORKDIR /var/www
 
 ENV PHP_OPCACHE_ENABLE="0" \
     PHP_OPCACHE_VALIDATE_TIMESTAMPS="0" \
@@ -25,31 +23,28 @@ RUN apt-get update && apt-get install -y \
     libpq-dev
 
 # Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*docker
 
 RUN pecl install redis
 # Install PHP extensions
-RUN docker-php-ext-install mbstring exif pcntl bcmath gd sockets opcache pdo pdo_pgsql
+RUN docker-php-ext-install mbstring exif pcntl bcmath sockets opcache pdo pdo_pgsql
 
 RUN docker-php-ext-enable redis
 
-# Get latest Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
 COPY docker/php/conf.d/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY docker/php/conf.d/realpath.ini /usr/local/etc/php/conf.d/realpath.ini
-#COPY docker/php/conf.d/preload.ini /usr/local/etc/php/conf.d/preload.ini
 
-# Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
+FROM base as prod
 
-# Set working directory
-WORKDIR /var/www
+COPY docker/php/conf.d/preload.ini /usr/local/etc/php/conf.d/preload.ini
 
-COPY . .
+COPY ./bin /app/bin
+COPY ./config /app/config
+COPY ./migrations /app/migrations
+COPY ./public /app/public
+COPY ./src /app/src
+COPY composer.* /app
 
-RUN  composer install --no-scripts --classmap-authoritative
+COPY --from=composer:2.7.2 /usr/bin/composer /usr/bin/composer
 
-USER $user
+RUN composer install -o
