@@ -4,10 +4,8 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-            target:  base
         image: php83-fpm
         restart: unless-stopped
-        working_dir: /var/www/
         environment:
             PHP_OPCACHE_ENABLE: 1
             PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
@@ -27,8 +25,7 @@ services:
         ports:
             - "80:80"
         volumes:
-            - ./:/var/www
-            - ./docker/nginx/:/etc/nginx/conf.d/
+            - ./docker/nginx/symfony.conf:/etc/nginx/conf.d/symfony.conf
             - ./ssl:/etc/nginx/ssl
         networks:
             - api-network
