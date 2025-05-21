@@ -17,17 +17,6 @@ class HealthController extends AbstractController
     )
     {
     }
-    #[Route('/info', name: '_info', methods: ['GET'])]
-    public function info(Request $request)
-    {
-        return phpinfo();
-    }
-
-    #[Route('/jit', name: '_jit', methods: ['GET'])]
-    public function jit(Request $request)
-    {
-        return new JsonResponse(opcache_get_status()['jit'],200);
-    }
 
     #[Route('/ping', name: '_pong', methods: ['GET'])]
     public function ping(Request $request)

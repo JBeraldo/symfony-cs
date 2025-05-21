@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN pecl install swoole-5.1.4
 
-RUN pecl install redis-6.1.0
+RUN pecl install redis-6.0.2
 # Install PHP extensions
 RUN docker-php-ext-install mbstring exif pcntl bcmath gd sockets opcache pdo pdo_pgsql
 
