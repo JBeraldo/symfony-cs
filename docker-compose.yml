@@ -3,7 +3,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-            target: dev
+            target: base
         image: php83-swoole
         restart: unless-stopped
         expose:
@@ -44,7 +44,7 @@ services:
             - api-network
     cache:
         container_name: redis-swl
-        image: redis:7
+        image: redis:7.4.3
         restart: unless-stopped
         ports:
             - "6379:6379"
